@@ -2,7 +2,7 @@
  <div class="common-layout">
     <el-container>
       <el-container>
-        <el-aside :width="isCollapse? '64px' : '200px'" style="transition: all .6s .15s ease-out">
+        <el-aside :width="isCollapse? '64px' : '200px'" style="transition: all 0.5s 0.1s ease-out">
             <el-menu
                 default-active="2"
                 class="el-menu-vertical-demo"
@@ -31,10 +31,12 @@
             </el-menu>
         </el-aside>
         <el-main>
-            <el-header class="el-main-header" style="transition: all .3s .15s ease-out; background: #545c64">
-                <div @click="collect" >
-                    <el-icon-arrowleftbold v-if='!isCollapse' />
-                    <el-icon-arrowrightbold v-if='isCollapse' />
+            <el-header class="el-main-header" style="transition: all .5s .15s ease-out">
+                <div class="container_header">
+                    <span @click="collect" class="header_icon">
+                        <el-icon-arrowleftbold v-if='!isCollapse' />
+                        <el-icon-arrowrightbold v-if='isCollapse' />
+                    </span>
                 </div>
             </el-header>
             <el-main>
@@ -68,5 +70,11 @@ main,
 }
 .el-main-header{
     line-height: 60px;
+}
+.container_header{
+    border-bottom: 1px solid rgba(82, 83, 82, 0.133);
+}
+.header_icon{
+    width: 10px;
 }
 </style>
