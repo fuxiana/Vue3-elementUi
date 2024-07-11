@@ -6,7 +6,6 @@
 
    function crearteQrcode() {
     const canvas = document.getElementById('canvas');
-    console.log(canvas,111111)
     QRCode?.toCanvas(canvas, targetUrl.value, {
       width: 250,
     }, (error) => {
