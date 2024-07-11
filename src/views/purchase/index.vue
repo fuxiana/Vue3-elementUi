@@ -12,7 +12,7 @@
         width="180"
       >
         <template #default="scope">
-          <el-input
+          <el-input-number
             placeholder="Please input"
             v-model="tableData[scope.$index].number"
           />
@@ -55,10 +55,14 @@
       :total="1000"
     /> -->
   </div>
+  <CountNumber :tableData @getInput="emitsGetInput"/>
+
+  <div style="margin-top:20px">父级接收子级的参数：{{current2}}</div>
 </template>
 
 <script lang="ts" setup>
-import { defineComponent, ref, watch } from 'vue'
+import { defineComponent, ref, watch } from 'vue';
+import CountNumber from './components/count-number'
 
 const input = ref('')
 const pageSize = ref(20)
@@ -107,6 +111,12 @@ const addData = () => {
     number: null,
   })
 }
+
+function emitsGetInput(data){
+  console.log(data,'父级传过来的参数')
+  current2.value = data
+}
+
 </script>
 
 
