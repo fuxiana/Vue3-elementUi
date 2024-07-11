@@ -7,13 +7,13 @@ export const containerRouter = [
   },
   {
     url: "/ceshi",
-    title: "测试组件",
+    title: "组件",
     icon: "el-icon-grape",
     children: [
       {
-        url: "/form",
-        title: "表格",
-        icon: "el-icon-location",
+        url: "/qrcode",
+        title: "生成二维码",
+        // icon: "el-icon-location",
       },
     ],
   },
