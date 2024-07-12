@@ -30,6 +30,6 @@
           <canvas id="canvas" ></canvas>
         </div>
     </div>
-    <el-input  v-model="targetUrl" />
+    <el-input  v-model="targetUrl" style="width:250px" />
     <el-button @click="crearteQrcode">生成二维码</el-button>
 </template>
