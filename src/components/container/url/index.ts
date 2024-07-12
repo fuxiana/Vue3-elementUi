@@ -15,6 +15,10 @@ export const containerRouter = [
         title: "生成二维码",
         // icon: "el-icon-location",
       },
+      {
+        url: '/bar-code',
+        title: "生成条形码"
+      }
     ],
   },
 ];

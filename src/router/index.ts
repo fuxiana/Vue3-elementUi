@@ -4,6 +4,7 @@ import Container  from  '../components/container/src/index.vue'
 import Purchase from '../../src/views/purchase/index.vue'
 import Form from '../views/form/index.vue';
 import QrCode from '../views/qrcode/index.vue';
+import BarCode from '../views/bar-code/index.vue';
  
 const routes: Array<RouteRecordRaw> = [
   {
@@ -28,8 +29,13 @@ const routes: Array<RouteRecordRaw> = [
       },
       {
         path: '/qrcode',
-        name: 'qrcode',
+        name: '二维码',
         component: QrCode,
+      },
+      {
+        path: '/bar-code',
+        name: '条形码',
+        component: BarCode,
       }
     ]
   },
