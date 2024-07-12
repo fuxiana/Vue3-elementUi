@@ -5,7 +5,7 @@
    const targetCode = ref('test123456');
 
    function crearteBarCode() {
-        JsBarcode('.canvas', targetCode, {
+        JsBarcode('.canvas', targetCode.value, {
             displayValue: false,
             height: 58,
         });
