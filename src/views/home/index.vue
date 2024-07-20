@@ -1,13 +1,25 @@
 <template>
-    <div>
-        表格
-    <div>去11</div>
- 
-    </div>
+   <el-table :data="tableData">
+      <el-table-column prop="date" label="测试数据1">
+        <template #default="scope">
+          <el-input-number
+            placeholder="Please input"
+            v-model="tableData[scope.$index].label"
+          />
+        </template>
+      </el-table-column>
+      <el-table-column label="测试数据2" prop="label"/>
+   </el-table>
  </template>
  
- <script>
- 
+ <script setup>
+ import { ref } from 'vue';
+    const tableData = ref([{label:"1111"}]);
+    async function getTableData(){
+        const data = await fetch('http://localhost:3000/users/test')
+        console.log(data)
+    }
+    getTableData()
  </script>
  
  <style lang="stylus">
