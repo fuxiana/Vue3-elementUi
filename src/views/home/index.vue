@@ -14,10 +14,15 @@
  
  <script setup>
  import { ref } from 'vue';
+ import request from '../../api/request.js';
     const tableData = ref([{label:"1111"}]);
     async function getTableData(){
-        const data = await fetch('http://localhost:3000/users/test')
-        console.log(data)
+        // const data = await fetch('http://localhost:3000/users/test')
+        // console.log(data)
+        request.get('/test')
+        .then((res)=>{
+            console.log(res,11111)
+        })
     }
     getTableData()
  </script>
