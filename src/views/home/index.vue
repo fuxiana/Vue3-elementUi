@@ -19,7 +19,11 @@
     async function getTableData(){
         // const data = await fetch('http://localhost:3000/users/test')
         // console.log(data)
-        request.get('/test')
+        request.get('/api/users/test')
+        .then((res)=>{
+            console.log(res,11111)
+        })
+        request.get('/users/test')
         .then((res)=>{
             console.log(res,11111)
         })

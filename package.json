@@ -3,10 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
+    "service": "cross-env VUE_CLI_SERVICE_CONFIG_PATH=./vue.config.ts ts-node ./node_modules/@vue/cli-service/bin/vue-cli-service.js serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
+
   "dependencies": {
     "@element-plus/icons-vue": "^1.1.4",
     "axios": "^1.7.2",
