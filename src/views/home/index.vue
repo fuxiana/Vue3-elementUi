@@ -23,10 +23,6 @@
         .then((res)=>{
             console.log(res,11111)
         })
-        request.get('/users/test')
-        .then((res)=>{
-            console.log(res,11111)
-        })
     }
     getTableData()
  </script>

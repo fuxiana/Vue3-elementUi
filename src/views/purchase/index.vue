@@ -1,6 +1,6 @@
 
 <template>
-  <div style="margin:20px">
+  <div style="margin:20px" id="content">
 
     <el-table
       :data="tableData"
@@ -58,11 +58,18 @@
   <CountNumber :tableData @getInput="emitsGetInput"/>
 
   <div style="margin-top:20px">父级接收子级的参数：{{current2}}</div>
+  <el-button
+    class="button-icon-add"
+    type="primary"
+    @click="getPDFData"
+  >
+    下载PDF
+  </el-button>
 </template>
 
 <script lang="ts" setup>
-import { defineComponent, ref, watch } from 'vue';
-import CountNumber from './components/count-number'
+import { defineComponent, ref, onBeforeMount } from 'vue';
+import CountNumber from './components/count-number';
 
 const input = ref('')
 const pageSize = ref(20)
@@ -94,6 +101,18 @@ const tableData = ref([
     number: '1212',
   },
 ])
+
+onBeforeMount(()=>{
+    // 创建一个新的script标签
+    var script = document.createElement('script');
+    // 设置script标签的type和src属性
+    script.type = 'text/javascript';
+    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
+
+    // 将script标签添加到head中
+    document.head.appendChild(script);
+})
+
 const handleDelete = (index: number, row: any) => {
   const _tableData = tableData.value
   _tableData.splice(index, 1)
@@ -112,7 +131,23 @@ const addData = () => {
   })
 }
 
-function emitsGetInput(data){
+function getPDFData(){
+  const element = document.getElementById('content');
+  var options = {
+      margin: 10,
+      filename: 'mypdf.pdf',
+      html2canvas: {
+          scale: 2  // 2倍的缩放
+      },
+      // jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+  };
+  html2pdf()
+      .from(element)
+      .set(options)
+      .save();
+}
+
+function emitsGetInput(data: any){
   console.log(data,'父级传过来的参数')
   current2.value = data
 }
@@ -121,7 +156,7 @@ function emitsGetInput(data){
 
 
 <style scoped>
-.button-icon-add {
-  margin-top: 20px;
-}
+  .button-icon-add {
+    margin-top: 20px;
+  }
 </style>
