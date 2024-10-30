@@ -18,6 +18,10 @@ export const containerRouter = [
       {
         url: '/bar-code',
         title: "生成条形码"
+      },
+      {
+         url: '/json-editor',
+        title: "JSON数据格式化"
       }
     ],
   },

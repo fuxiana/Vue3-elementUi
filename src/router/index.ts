@@ -5,6 +5,7 @@ import Purchase from '../../src/views/purchase/index.vue'
 import Form from '../views/form/index.vue';
 import QrCode from '../views/qrcode/index.vue';
 import BarCode from '../views/bar-code/index.vue';
+import JsonEditor from '../views/json-editor/index.vue';
  
 const routes: Array<RouteRecordRaw> = [
   {
@@ -36,6 +37,11 @@ const routes: Array<RouteRecordRaw> = [
         path: '/bar-code',
         name: '条形码',
         component: BarCode,
+      },
+      {
+        path: '/json-editor',
+        name: 'JSON数据格式在线格式化',
+        component: JsonEditor,
       }
     ]
   },
