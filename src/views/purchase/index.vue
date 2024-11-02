@@ -55,7 +55,7 @@
       :total="1000"
     /> -->
   </div>
-  <CountNumber :tableData @getInput="emitsGetInput"/>
+  <CountNumber :tableData="tableData" @getInput="emitsGetInput"/>
 
   <div style="margin-top:20px">父级接收子级的参数：{{current2}}</div>
   <el-button
