@@ -1,4 +1,5 @@
 <template>
+  <Container/>
   <router-view/>
 </template>
 
@@ -21,3 +22,21 @@ svg{
   width: 1em;
 }
 </style>
+
+
+<script setup>
+  import { ref, onMounted } from 'vue'
+  import Container  from  '../src/components/container/src/index.vue';
+  import { useRouter } from 'vue-router';
+  const router = useRouter();
+
+
+  const showMenu = ref(false);
+  
+  onMounted(()=>{
+    if(router.options?.history?.location !== '/'){
+      showMenu.value = true;
+    }
+  })
+  
+</script>

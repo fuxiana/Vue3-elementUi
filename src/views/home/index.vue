@@ -1,113 +1,234 @@
+<script setup>
+import { ref } from "vue";
+import { useRouter } from "vue-router";
+//import { ElMessage } from 'element-plus';
+ 
+const loginForm = ref({
+  email: "",
+  password: "",
+});
+const loginFormRef = ref({
+  email: "",
+  password: "",
+});
+ 
+const rules = {
+  email: [
+    { required: true, message: "请输入邮箱", trigger: "blur" },
+    { type: "email", message: "邮箱格式不正确", trigger: ["blur", "change"] },
+  ],
+  password: [
+    {
+      required: true,
+      message: "请输入密码",
+      trigger: "blur",
+    },
+  ],
+};
+ 
+const router = useRouter();
+ 
+
+ 
+const changeUrl = (url) => {
+  router.replace(url);
+};
+ 
+const options = {
+  fpsLimit: 60,
+  interactivity: {
+    detectsOn: "canvas",
+    events: {
+      onClick: {
+        // 开启鼠标点击的效果
+        enable: true,
+        mode: "push",
+      },
+      onHover: {
+        // 开启鼠标悬浮的效果(线条跟着鼠标移动)
+        enable: true,
+        mode: "grab",
+      },
+      resize: true,
+    },
+    modes: {
+      // 配置动画效果
+      bubble: {
+        distance: 400,
+        duration: 2,
+        opacity: 0.8,
+        size: 40,
+      },
+      push: {
+        quantity: 4,
+      },
+      grab: {
+        distance: 200,
+        duration: 0.4,
+      },
+      attract: {
+        // 鼠标悬浮时，集中于一点，鼠标移开时释放产生涟漪效果
+        distance: 200,
+        duration: 0.4,
+        factor: 5,
+      },
+    },
+  },
+  particles: {
+    color: {
+      value: "#BA55D3", // 粒子点的颜色
+    },
+    links: {
+      color: "#FFBBFF", // 线条颜色
+      distance: 150, //线条距离
+      enable: true,
+      opacity: 0.4, // 不透明度
+      width: 1.2, // 线条宽度
+    },
+    collisions: {
+      enable: true,
+    },
+    move: {
+      attract: { enable: false, rotateX: 600, rotateY: 1200 },
+      bounce: false,
+      direction: "none",
+      enable: true,
+      out_mode: "out",
+      random: false,
+      speed: 0.5, // 移动速度
+      straight: false,
+    },
+    number: {
+      density: {
+        enable: true,
+        value_area: 800,
+      },
+      value: 80, //粒子数
+    },
+    opacity: {
+      //粒子透明度
+      value: 0.7,
+    },
+    shape: {
+      //粒子样式
+      type: "star",
+    },
+    size: {
+      //粒子大小
+      random: true,
+      value: 3,
+    },
+  },
+  detectRetina: true,
+};
+</script>
+ 
 <template>
-   <el-table :data="tableData">
-      <el-table-column prop="title" label="书名">
-        <template #default="scope">
+  <div class="login">
+    <Particles id="tsparticles" class="login__particles" :options="options" />
+ 
+    <div class="loginPart">
+      <h2>用户登录</h2>
+      <el-form
+        :model="loginForm"
+        ref="loginFormRef"
+        :rules="rules"
+        label-width="100px"
+        style="transform: translate(-30px)"
+      >
+        <el-form-item label="邮箱" prop="email">
           <el-input
-            placeholder="Please input"
-            v-model="tableData[scope.$index].title"
-          />
-        </template>
-      </el-table-column>
-      <el-table-column label="作者" prop="author">
-        <template #default="scope">
+            v-model="loginForm.email"
+            placeholder="请输入邮箱"
+            clearable
+          ></el-input>
+        </el-form-item>
+        <el-form-item label="密码" prop="password">
           <el-input
-            placeholder="Please input"
-            v-model="tableData[scope.$index].author"
-          />
-        </template>
-      </el-table-column>
-      <el-table-column label="主角" prop="protagonist">
-        <template #default="scope">
-          <el-input
-            placeholder="Please input"
-            v-model="tableData[scope.$index].protagonist"
-          />
-        </template>
-      </el-table-column>
-      <el-table-column label="年份" prop="year">
-        <template #default="scope">
-          <el-input
-            placeholder="Please input"
-            v-model="tableData[scope.$index].year"
-          />
-        </template>
-      </el-table-column>
-      <el-table-column align="right">
-        <template #default="scope">
-          <el-button
-            size="small"
+            type="password"
+            v-model="loginForm.password"
+            placeholder="请输入密码"
+            show-password
+            clearable
+          ></el-input>
+        </el-form-item>
+ 
+        <el-button
+          class="btn"
+          type="primary"
+          @click="login"
+          auto-insert-space
+          >登录</el-button
+        >
+        <div style="text-align: right; transform: translate(0, 30px)">
+          <el-link
             type="danger"
-            @click="handleDelete(scope.$index, scope.row)"
+            @click="changeUrl('/forget')"
+            style="margin-right: 140px"
           >
-            删除
-          </el-button>
-          <el-button
-            style="margin-left: 10px;"
-            size="small"
-            type="success"
-            @click="handleSubmit(scope.$index, scope.row)"
+            忘记密码？
+          </el-link>
+ 
+          <el-link type="warning" @click="changeUrl('/register')"
+            >没有账号？去注册</el-link
           >
-            提交
-          </el-button>
-          <el-button
-            style="margin-left: 10px;"
-            size="small"
-            type="primary"
-            @click="handleAdd(scope.$index)"
-          >
-            新增
-          </el-button>
-        </template>
-      </el-table-column>
-   </el-table>
-
-   <!-- <el-button type="primary" style="margin-top: 10px; text-align: end;">表单提交</el-button> -->
-   
-   <!-- <div style="margin-top: 20px;">正则优化</div> -->
- </template>
+        </div>
+      </el-form>
+    </div>
+  </div>
+</template>
  
- <script setup>
- import { ref, onMounted ,h } from 'vue';
- import { ElNotification } from 'element-plus';
- import request from '../../api/request.js';
-    const tableData = ref([]);
-
-    onMounted(()=>{
-      getTableData()
-    })
-
-    async function getTableData(){
-        request.get('/book/list')
-        .then((res)=>{
-          tableData.value = res;
-        })
-    }
-   
-
-    const handleDelete = (index) => {
-      const _tableData = tableData.value
-      _tableData.splice(index, 1)
-    }
-
-    function handleSubmit(index, row){
-      request.post('/book/submit',{...row})
-        .then((res)=>{
-          getTableData();
-          ElNotification({
-            title: '提示',
-            message: h('i', { style: 'color: teal' }, '提交成功'),
-          })
-        })
-    }
-
-    function handleAdd(index){
-      const _tableData = tableData.value
-      _tableData.splice(index+1, 0 , {})
-    }
-
- </script>
+<style >
+.login {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
  
- <style lang="stylus">
+.login__particles {
+  height: 100%;
+  width: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-image: url("../../assets/6dce1f60360c4e9e9c9968d409833969.png");
+  opacity: 0.9;
+  position: fixed;
+  pointer-events: none;
+}
  
- </style>
+.loginPart {
+  position: absolute;
+  /*定位方式绝对定位absolute*/
+  top: 50%;
+  left: 80%;
+  /*顶和高同时设置50%实现的是同时水平垂直居中效果*/
+  transform: translate(-50%, -50%);
+  /*实现块元素百分比下居中*/
+  width: 450px;
+  padding: 50px;
+  background: rgba(255, 204, 255, 0.3);
+  /*背景颜色为黑色，透明度为0.8*/
+  box-sizing: border-box;
+  /*box-sizing设置盒子模型的解析模式为怪异盒模型，
+    将border和padding划归到width范围内*/
+  box-shadow: 0px 15px 25px rgba(0, 0, 0, 0.5);
+  /*边框阴影  水平阴影0 垂直阴影15px 模糊25px 颜色黑色透明度0.5*/
+  border-radius: 15px;
+  /*边框圆角，四个角均为15px*/
+}
  
+h2 {
+  margin: 0 0 30px;
+  padding: 0;
+  color: #fff;
+  text-align: center;
+  /*文字居中*/
+}
+ 
+.btn {
+  transform: translate(170px);
+  width: 80px;
+  height: 40px;
+  font-size: 15px;
+}
+</style>

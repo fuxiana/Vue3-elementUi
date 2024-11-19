@@ -7,6 +7,7 @@ import "element-plus/dist/index.css";
 import * as Icons from "@element-plus/icons-vue";
 import { toLine } from "./utils";
 
+
 const app = createApp(App);
 
 for (const key in Icons) {
@@ -14,6 +15,7 @@ for (const key in Icons) {
 }
 
 app.use(ElementPlus);
+// app.use(Container)
 app.use(router);
 app.use(store);
 app.mount("#app");

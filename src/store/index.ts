@@ -3,13 +3,17 @@ import { createStore } from "vuex";
 export default createStore({
   state: {
     isCollapse: false,
+    showMenu: true,
   },
   mutations: {
     collapserMenu(state) {
-      console.log(1212);
       state.isCollapse = !state.isCollapse;
+    },
+    SET_SHOW_MENU(state, status) {
+      state.showMenu = status;
     },
   },
   actions: {},
   modules: {},
 });
+

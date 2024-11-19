@@ -1,5 +1,5 @@
 <template>
-  <div class="common-layout">
+  <div class="common-layout" v-if="showMenu" >
     <div class="common-layout">
       <el-container>
         <el-aside
@@ -77,46 +77,46 @@
     </div>
   </div>
 </template>
-<script >
-import { containerRouter } from '../url/index'
+<script setup >
+  import { ref, onMounted } from 'vue'
+  import { containerRouter } from '../url/index'
 
-export default {
+  import { useRouter } from 'vue-router';
+  const router = useRouter();
 
-  data () {
-    return {
-      isCollapse: false,
-      containerRouter,
-      elContainerRigth: ``
+
+  const showMenu = ref(false);
+  
+  onMounted(()=>{
+    if(!['/','/register'].includes(router.options?.history?.location)){
+      showMenu.value = true;
     }
-  },
-  computed: {
-  },
-}
+  })
 </script>
 
 <style>
-main,
-.el-main,
-.el-header {
-  margin: 0px !important;
-  padding: 0px !important;
-}
-.el-menu {
-  border-right-color: darkgray;
-}
-.el-main-header {
-  line-height: 60px;
-}
-.container_header {
-  border-bottom: 1px solid rgba(82, 83, 82, 0.133);
-}
-.header_icon {
-  width: 10px;
-}
-.el-container-rigth {
-  width: calc(100% - 100px);
-}
-.el-menu-vertical-demo:not(.el-menu--collapse) {
-  width: 200px;
-}
+  main,
+  .el-main,
+  .el-header {
+    margin: 0px !important;
+    padding: 0px !important;
+  }
+  .el-menu {
+    border-right-color: darkgray;
+  }
+  .el-main-header {
+    line-height: 60px;
+  }
+  .container_header {
+    border-bottom: 1px solid rgba(82, 83, 82, 0.133);
+  }
+  .header_icon {
+    width: 10px;
+  }
+  .el-container-rigth {
+    width: calc(100% - 100px);
+  }
+  .el-menu-vertical-demo:not(.el-menu--collapse) {
+    width: 200px;
+  }
 </style>
