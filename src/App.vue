@@ -1,5 +1,4 @@
 <template>
-  <Container/>
   <router-view/>
 </template>
 

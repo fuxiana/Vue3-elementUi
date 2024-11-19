@@ -2,6 +2,9 @@ import { createApp } from "vue";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
+import Particles from 'particles.vue3';
+
+
 import ElementPlus from "element-plus";
 import "element-plus/dist/index.css";
 import * as Icons from "@element-plus/icons-vue";
@@ -16,6 +19,7 @@ for (const key in Icons) {
 
 app.use(ElementPlus);
 // app.use(Container)
+app.use(Particles)
 app.use(router);
 app.use(store);
 app.mount("#app");

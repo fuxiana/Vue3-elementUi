@@ -55,7 +55,6 @@
     import JSONEditor from 'jsoneditor';
     import 'jsoneditor/dist/jsoneditor.css';
     import { ElNotification } from "element-plus";
-import { da } from 'element-plus/es/locale';
     
     const jsonData = ref('{"text":"text"}');
     const changeJsonData = ref()

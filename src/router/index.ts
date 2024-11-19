@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import Home from '../views/home/index.vue'
+import Container  from  '../components/container/src/index.vue'
 import Purchase from '../../src/views/purchase/index.vue'
 import Form from '../views/form/index.vue';
 import QrCode from '../views/qrcode/index.vue';
@@ -10,7 +11,7 @@ import Register from '../views/home/register.vue'
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    // component: Container,
+    component: Container,
     name:'container_header',
     children:[
       {
@@ -56,18 +57,6 @@ const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
 })
-
-let shouldShowMenu = true;
-
-router.beforeEach((to: any, from: any, next: Function) => {
-  // 判断当前路由是否为不展示菜单的路由
-  if (to.name === '/' ) {
-    shouldShowMenu = false; // 不显示菜单
-  } else {
-    shouldShowMenu = true; // 显示菜单
-  }
-  next();
-});
 
 
 export default router

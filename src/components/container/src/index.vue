@@ -1,10 +1,11 @@
 <template>
-  <div class="common-layout" v-if="showMenu" >
+  <div class="common-layout">
     <div class="common-layout">
       <el-container>
         <el-aside
           class="el-menu-vertical-demo"
           style="width:auto"
+          v-if="showMenu"
         >
           <el-menu
             default-active="2"
@@ -58,7 +59,7 @@
           </el-menu>
         </el-aside>
         <el-container class="el-container-rigth">
-          <el-header class="el-main-header">
+          <el-header class="el-main-header" v-if="showMenu">
             <div class="container_header">
               <span
                 @click="this.$store.commit('collapserMenu')"
