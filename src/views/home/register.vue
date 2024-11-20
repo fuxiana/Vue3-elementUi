@@ -1,6 +1,6 @@
 <template>
     <div class="login">
-      <vue-particles id="tsparticles" class="login__particles" :options="options"  :particlesInit="particlesInit" :particlesLoaded="particlesLoaded" />
+      <Particles id="tsparticles" class="login__particles" :options="options"  :particlesInit="particlesInit" :particlesLoaded="particlesLoaded" />
    
       <div class="loginPart">
         <h2>用户注册</h2>
@@ -71,9 +71,10 @@
   <script setup>
   import { ref } from "vue";
   import { useRouter } from "vue-router";
-
+  import { reactive } from 'vue'
   import { loadFull } from "tsparticles"
-//   import { getCodeService, registerService } from "@/api/user";
+  import  { Engine } from 'tsparticles-engine'
+
    
   const isTime = ref(true);
   const currentTime = ref(10);
@@ -166,10 +167,10 @@
         },
         particles: {
           color: {
-              value: "#ffffff",
+              value: "#000000",
           },
           links: {
-              color: "#ffffff",
+              color: "#e67757",
               distance: 150,
               enable: true,
               opacity: 0.5,
