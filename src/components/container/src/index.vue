@@ -7,10 +7,11 @@
           style="width:auto"
           v-if="showMenu"
         >
+        {{ console.log(store, this, this, this?.$store) }}
           <el-menu
             default-active="2"
             class="el-menu-vertical-demo"
-            :collapse="this.$store.state.isCollapse"
+            :collapse="store.state.isCollapse"
             router
             unique-opened
           >
@@ -37,7 +38,7 @@
                     style="marginRight:5px"
                     :is="item.icon"
                   ></component>
-                  <span v-if='!this.$store.state.isCollapse'>{{item.title}}</span>
+                  <span v-if='!store.state.isCollapse'>{{item.title}}</span>
                 </template>
                 <div
                   v-for="items,index in item.children"
@@ -62,11 +63,11 @@
           <el-header class="el-main-header" v-if="showMenu">
             <div class="container_header">
               <span
-                @click="this.$store.commit('collapserMenu')"
+                @click="store.commit('collapserMenu')"
                 class="header_icon"
               >
-                <el-icon-arrowleftbold v-if='!this.$store.state.isCollapse' />
-                <el-icon-arrowrightbold v-if='this.$store.state.isCollapse' />
+                <el-icon-arrowleftbold v-if='!store.state.isCollapse' />
+                <el-icon-arrowrightbold v-if='store.state.isCollapse' />
               </span>
             </div>
           </el-header>
@@ -80,7 +81,8 @@
 </template>
 <script setup >
   import { ref, onMounted } from 'vue'
-  import { containerRouter } from '../url/index'
+  import { containerRouter } from '../url/index';
+  import store from '@/store';
 
   import { useRouter } from 'vue-router';
   const router = useRouter();
