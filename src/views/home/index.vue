@@ -37,7 +37,8 @@ const submitForm = (formEl) => {
       request.post("/login/submit", { ...loginForm.value }).then((res) => {
         if(res.data){
           ElMessage.success("登入成功!");
-          router.replace('/form');
+          // router.push({path:'/form'});
+          window.location.href="/form"
         }
       });
     } else {
