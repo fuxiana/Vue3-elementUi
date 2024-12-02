@@ -202,7 +202,7 @@ const options = {
   width: 100%;
   background-size: cover;
   background-repeat: no-repeat;
-  /* background-image: url("../../assets/6dce1f60360c4e9e9c9968d409833969.png"); */
+  background-image: url("../../assets/6dce1f60360c4e9e9c9968d409833969.png");
   opacity: 0.9;
   position: fixed;
   pointer-events: none;
