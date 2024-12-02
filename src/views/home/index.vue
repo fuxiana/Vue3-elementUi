@@ -1,22 +1,20 @@
 <script setup>
 import { ref } from "vue";
 import { useRouter } from "vue-router";
+import request from "../../api/request.js";
 //import { ElMessage } from 'element-plus';
- 
+document.title = "登入";
 const loginForm = ref({
-  email: "",
+  username: "",
   password: "",
 });
 const loginFormRef = ref({
-  email: "",
+  username: "",
   password: "",
 });
- 
+
 const rules = {
-  email: [
-    { required: true, message: "请输入邮箱", trigger: "blur" },
-    { type: "email", message: "邮箱格式不正确", trigger: ["blur", "change"] },
-  ],
+  username: [{ required: true, message: "请输入账号", trigger: "blur" }],
   password: [
     {
       required: true,
@@ -25,15 +23,27 @@ const rules = {
     },
   ],
 };
- 
-const router = useRouter();
- 
 
- 
+const router = useRouter();
+
 const changeUrl = (url) => {
   router.replace(url);
 };
- 
+
+const submitForm = (formEl) => {
+  if (!formEl) return;
+  formEl.validate((valid) => {
+    if (valid) {
+      console.log("submit!", loginForm.value);
+      request.post("/login/submit", { ...loginForm.value }).then((res) => {
+        console.log(res, 11111);
+      });
+    } else {
+      return false;
+    }
+  });
+};
+
 const options = {
   fpsLimit: 60,
   interactivity: {
@@ -122,11 +132,11 @@ const options = {
   detectRetina: true,
 };
 </script>
- 
+
 <template>
   <div class="login">
     <Particles id="tsparticles" class="login__particles" :options="options" />
- 
+
     <div class="loginPart">
       <h2>用户登录</h2>
       <el-form
@@ -136,10 +146,10 @@ const options = {
         label-width="100px"
         style="transform: translate(-30px)"
       >
-        <el-form-item label="邮箱" prop="email">
+        <el-form-item label="账号" prop="username">
           <el-input
-            v-model="loginForm.email"
-            placeholder="请输入邮箱"
+            v-model="loginForm.username"
+            placeholder="请输入账号"
             clearable
           ></el-input>
         </el-form-item>
@@ -152,23 +162,23 @@ const options = {
             clearable
           ></el-input>
         </el-form-item>
- 
+
         <el-button
           class="btn"
           type="primary"
-          @click="login"
+          @click="submitForm(loginFormRef)"
           auto-insert-space
           >登录</el-button
         >
         <div style="text-align: right; transform: translate(0, 30px)">
-          <el-link
+          <!-- <el-link
             type="danger"
             @click="changeUrl('/forget')"
             style="margin-right: 140px"
           >
             忘记密码？
-          </el-link>
- 
+          </el-link> -->
+
           <el-link type="warning" @click="changeUrl('/register')"
             >没有账号？去注册</el-link
           >
@@ -177,25 +187,25 @@ const options = {
     </div>
   </div>
 </template>
- 
-<style >
+
+<style scoped>
 .login {
   height: 100%;
   width: 100%;
   overflow: hidden;
 }
- 
+
 .login__particles {
   height: 100%;
   width: 100%;
   background-size: cover;
   background-repeat: no-repeat;
-  background-image: url("../../assets/6dce1f60360c4e9e9c9968d409833969.png");
+  /* background-image: url("../../assets/6dce1f60360c4e9e9c9968d409833969.png"); */
   opacity: 0.9;
   position: fixed;
   pointer-events: none;
 }
- 
+
 .loginPart {
   position: absolute;
   /*定位方式绝对定位absolute*/
@@ -216,7 +226,7 @@ const options = {
   border-radius: 15px;
   /*边框圆角，四个角均为15px*/
 }
- 
+
 h2 {
   margin: 0 0 30px;
   padding: 0;
@@ -224,7 +234,7 @@ h2 {
   text-align: center;
   /*文字居中*/
 }
- 
+
 .btn {
   transform: translate(170px);
   width: 80px;

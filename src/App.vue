@@ -1,9 +1,9 @@
 <template>
-  <router-view/>
+  <router-view />
 </template>
 
 <style>
-*{
+* {
   margin: 0px;
   padding: 0px;
 }
@@ -12,30 +12,27 @@ body,
 #app,
 .common-layout,
 .el-container,
-.el-menu
-{
+.el-menu {
   height: 100%;
 }
-svg{
+svg {
   height: 1em;
   width: 1em;
 }
 </style>
 
-
 <script setup>
-  import { ref, onMounted } from 'vue'
-  import Container  from  '../src/components/container/src/index.vue';
-  import { useRouter } from 'vue-router';
-  const router = useRouter();
+import { ref, onMounted } from "vue";
+import Container from "../src/components/container/src/index.vue";
+import { useRouter } from "vue-router";
+const router = useRouter();
 
+const showMenu = ref(false);
 
-  const showMenu = ref(false);
-  
-  onMounted(()=>{
-    if(router.options?.history?.location !== '/'){
-      showMenu.value = true;
-    }
-  })
-  
+onMounted(() => {
+  if (router.options?.history?.location !== "/") {
+    showMenu.value = true;
+  }
+  document.title = "图书管理系统";
+});
 </script>
