@@ -1,7 +1,7 @@
 export const containerRouter = [
   {
-    url: "/purchase",
-    title: "表格的增删改查",
+    url: "/form",
+    title: "图书列表",
     children: [],
     icon: "el-icon-menu",
   },

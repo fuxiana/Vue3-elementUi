@@ -2,7 +2,7 @@
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import request from "../../api/request.js";
-//import { ElMessage } from 'element-plus';
+import { ElMessage } from 'element-plus';
 document.title = "登入";
 const loginForm = ref({
   username: "",
@@ -34,9 +34,11 @@ const submitForm = (formEl) => {
   if (!formEl) return;
   formEl.validate((valid) => {
     if (valid) {
-      console.log("submit!", loginForm.value);
       request.post("/login/submit", { ...loginForm.value }).then((res) => {
-        console.log(res, 11111);
+        if(res.data){
+          ElMessage.success("登入成功!");
+          router.replace('/form');
+        }
       });
     } else {
       return false;

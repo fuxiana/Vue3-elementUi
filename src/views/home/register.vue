@@ -18,9 +18,9 @@
         label-width="100px"
         style="transform: translate(-30px)"
       >
-        <el-form-item label="账号" prop="email">
+        <el-form-item label="账号" prop="username">
           <el-input
-            v-model="registerForm.email"
+            v-model="registerForm.username"
             placeholder="请输入账号"
           ></el-input>
         </el-form-item>
@@ -53,7 +53,7 @@
               class="code-btn"
               type="primary"
               v-if="isTime"
-              @click="getCode(registerForm.email)"
+              @click="getCode(registerForm.username)"
               >获取验证码</el-button
             >
             <el-button
@@ -77,31 +77,30 @@
 <script setup>
 import { ref } from "vue";
 import { useRouter } from "vue-router";
-import { reactive } from "vue";
 import { loadFull } from "tsparticles";
-import { Engine } from "tsparticles-engine";
+import request from "../../api/request.js";
+import { ElMessage } from 'element-plus';
 
 const isTime = ref(true);
 const currentTime = ref(10);
 
 const registerForm = ref({
-  email: "",
+  username: "",
   password: "",
   confirmPassword: "",
   code: "",
 });
 
 const registerFormRef = ref({
-  email: "",
+  username: "",
   password: "",
   confirmPassword: "",
   code: "",
 });
 
 const rules = {
-  email: [
-    { required: true, message: "请输入邮箱", trigger: "blur" },
-    { type: "email", message: "邮箱格式不正确", trigger: ["blur", "change"] },
+  username: [
+    { required: true, message: "请输入账号", trigger: "blur" },
   ],
   password: [{ required: true, message: "请输入密码", trigger: "blur" }],
   confirmPassword: [
@@ -124,15 +123,16 @@ const rules = {
 
 const router = useRouter();
 
-//   const register = async () => {
-//     registerForm.value.email = registerForm.value.email.trim();
-//     registerForm.value.password = registerForm.value.password.trim();
-//     registerForm.value.code = registerForm.value.code.trim();
-//     const res = await registerService(registerForm.value);
-//     //ElMessage.success(res.message ? res.message : '注册成功!')
-//     ElMessage.success("注册成功!");
-//     goToLogin;
-//   };
+  const register = async () => {
+    registerForm.value.username = registerForm.value.username.trim();
+    registerForm.value.password = registerForm.value.password.trim();
+    request.post("/login/register", { ...registerForm.value }).then((res) => {
+      if(res.data){
+        ElMessage.success("登入成功!");
+        router.replace('/');
+      }
+    });
+  };
 
 const goToLogin = () => {
   router.push("/");

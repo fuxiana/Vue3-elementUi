@@ -74,12 +74,81 @@
 
     onMounted(()=>{
       getTableData()
+      // getQueryUrlObject('https://www.baidu.com/s?a=1?ie=utf-8&tn=25017023_17_dg&wd=es6+map%E5%AF%B9%E8%B1%A1');
+      // getData();
+      // 每隔1秒，60秒后开始抢购
+      // updataTime(1000, 10);
+      // 用户开始抢购
+      // userParticipateInPurchase(123);
     })
+
+    function updataTime(timeout, time){
+      if(time < 0 ){
+        console.log('开始抢购');
+        return 
+      }else{
+        console.log('还剩' + time + '开始抢购')
+        setTimeout(() => {
+          updataTime(timeout, time - 1)
+        }, timeout);
+      }
+    }
+    // 模拟抢购成功的函数
+    function mockSuccessfulPurchase() {
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                const success = Math.random() >= 0.5; // 模拟随机结果
+                if (success) {
+                    resolve('购买成功！');
+                } else {
+                    reject('购买失败，服务器繁忙或者网络问题。');
+                }
+            }, 1000); // 模拟异步操作耗时1秒
+        });
+    }
+ 
+    // 模拟抢购失败的函数
+    function mockFailedPurchase() {
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                reject('购买失败，库存不足。');
+            }, 1000); // 模拟异步操作耗时1秒
+        });
+    }
+    
+    // 模拟用户参与抢购
+    function userParticipateInPurchase(itemId) {
+        console.log(`用户开始抢购编号为${itemId}的商品。`);
+        console.log(Math.random() ,11111)
+        const promise = Math.random() >= 0.5 ? mockSuccessfulPurchase() : mockFailedPurchase();
+        promise
+            .then(message => console.log(message))
+            .catch(error => console.error(error));
+    }
+ 
+
+    
+
+    function getData(){
+      let map = new Map([[1,2]]);
+      map.set(2,3)
+      console.log(map.get(1),[...map]);
+    }
+
+    function getQueryUrlObject(url){
+      let obj = {};
+      url.replace(/(\w+)=(\w+)?/g, function(match, matchKey, matchValue) {   
+        console.log(match,matchKey,matchValue)
+      })
+      console.log(obj,'obj=>>>>>>>')
+    }
 
     async function getTableData(){
         request.get('/book/list')
         .then((res)=>{
-          tableData.value = res;
+          if(res.data){
+            tableData.value = res.data;
+          }
         })
     }
    
@@ -92,11 +161,13 @@
     function handleSubmit(index, row){
       request.post('/book/submit',{...row})
         .then((res)=>{
-          getTableData();
-          ElNotification({
-            title: '提示',
-            message: h('i', { style: 'color: teal' }, '提交成功'),
-          })
+          if(res.data){
+            getTableData();
+            ElNotification({
+              title: '提示',
+              message: h('i', { style: 'color: teal' }, '提交成功'),
+            })
+          }
         })
     }
 
