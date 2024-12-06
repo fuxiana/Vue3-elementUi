@@ -34,5 +34,19 @@ onMounted(() => {
     showMenu.value = true;
   }
   document.title = "图书管理系统";
+
+  getServiceWorker();
 });
+
+function getServiceWorker(){
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+      navigator.serviceWorker.register('/sw.js').then(function(registration) {
+        console.log('Service Worker Registered:', registration,111111);
+      }).catch(function(error) {
+        console.log('Registration failed with ', error,2222);
+      });
+    });
+  }
+}
 </script>
