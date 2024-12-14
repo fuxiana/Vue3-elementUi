@@ -33,15 +33,15 @@ module.exports = defineConfig({
   },
   devServer:{
     https: true,  // 是否https
-    // proxy:{
-    //   "/api":{
-    //     target: "http://127.0.0.1:8088/",
-    //     changeOrigin: true,
-    //     ws: true,
-    //     pathRewrite:{
-    //         "^/api": ""
-    //     }
-    //   } 
-    // }
+    proxy:{
+      "/api":{
+        target: "http://127.0.0.1:8088/",
+        changeOrigin: true,
+        ws: true,
+        pathRewrite:{
+            "^/api": ""
+        }
+      } 
+    }
   }
 });

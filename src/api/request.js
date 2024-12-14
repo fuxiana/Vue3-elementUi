@@ -1,5 +1,7 @@
 import axios from "axios";
 import { ElNotification } from "element-plus";
+import {useCookies} from 'vue3-cookies';
+const { cookies } = useCookies()
 //创建axios实例
 let request = axios.create({
   baseURL: "/api",
@@ -7,6 +9,10 @@ let request = axios.create({
 });
 //请求拦截器
 request.interceptors.request.use((config) => {
+  config.headers={
+    ...config.headers,
+    "token":cookies.get('token')
+  }
   return config;
 });
 //响应拦截器
@@ -20,6 +26,12 @@ request.interceptors.response.use(
         message: errorMessage.description || "系统异常",
         duration: 10000,
       });
+      setTimeout(() => {
+        if(response?.data?.code == 401){
+          window.location.href="/";
+        }
+      }, 3000);
+    
     }
     return response.data;
   },

@@ -3,6 +3,9 @@ import { ref } from "vue";
 import { useRouter } from "vue-router";
 import request from "../../api/request.js";
 import { ElMessage } from 'element-plus';
+import { useCookies } from 'vue3-cookies';
+const { cookies } = useCookies()
+
 document.title = "登入";
 const loginForm = ref({
   username: "",
@@ -36,6 +39,7 @@ const submitForm = (formEl) => {
     if (valid) {
       request.post("/login/submit", { ...loginForm.value }).then((res) => {
         if(res.data){
+          cookies.set("token", res.data, 20000)
           ElMessage.success("登入成功!");
           // router.push({path:'/form'});
           window.location.href="/form"
