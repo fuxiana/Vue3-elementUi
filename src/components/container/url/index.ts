@@ -6,6 +6,12 @@ export const containerRouter = [
     icon: "el-icon-menu",
   },
   {
+    url: "/interview",
+    title: "面试题",
+    children: [],
+    icon: "el-icon-sunny",
+  },
+  {
     url: "/ceshi",
     title: "组件",
     icon: "el-icon-grape",

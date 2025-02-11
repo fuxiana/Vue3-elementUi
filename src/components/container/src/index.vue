@@ -4,16 +4,13 @@
       <el-container>
         <el-aside
           class="el-menu-vertical-demo"
-          style="width:auto"
           v-if="showMenu"
         >
-        {{ console.log(store, this, this, this?.$store) }}
           <el-menu
             default-active="2"
             class="el-menu-vertical-demo"
-            :collapse="store.state.isCollapse"
-            router
-            unique-opened
+            mode="horizontal"
+            @select="handleSelect"
           >
             <template
               v-for="item,index in containerRouter"
@@ -55,27 +52,15 @@
                     <template #title>{{items.title}}</template>
                   </el-menu-item>
                 </div>
-              </el-sub-menu>
+              </el-sub-menu>            
             </template>
           </el-menu>
-        </el-aside>
-        <el-container class="el-container-rigth">
-          <el-header class="el-main-header" v-if="showMenu">
-            <div class="container_header">
-              <span
-                @click="store.commit('collapserMenu')"
-                class="header_icon"
-              >
-                <el-icon-arrowleftbold v-if='!store.state.isCollapse' />
-                <el-icon-arrowrightbold v-if='store.state.isCollapse' />
-              </span>
-            </div>
-          </el-header>
-          <el-main>
+          <div style="margin: 20px;">
             <router-view />
-          </el-main>
-        </el-container>
+          </div>
+        </el-aside>
       </el-container>
+     
     </div>
   </div>
 </template>
@@ -95,6 +80,10 @@
       showMenu.value = true;
     }
   })
+
+  function handleSelect(data){
+    router.push(data)
+  }
 </script>
 
 <style>
@@ -117,9 +106,10 @@
     width: 10px;
   }
   .el-container-rigth {
-    width: calc(100% - 100px);
+    height: calc(100% - 100px);
+    width: 100%;
   }
   .el-menu-vertical-demo:not(.el-menu--collapse) {
-    width: 200px;
+    width: 100%;
   }
 </style>

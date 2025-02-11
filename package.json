@@ -5,7 +5,7 @@
   "scripts": {
     "service": "cross-env VUE_CLI_SERVICE_CONFIG_PATH=./vue.config.ts ts-node ./node_modules/@vue/cli-service/bin/vue-cli-service.js serve",
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build --report",
+    "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {

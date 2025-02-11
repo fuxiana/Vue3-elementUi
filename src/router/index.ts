@@ -7,6 +7,7 @@ import QrCode from "../views/qrcode/index.vue";
 import BarCode from "../views/bar-code/index.vue";
 import JsonEditor from "../views/json-editor/index.vue";
 import Register from "../views/home/register.vue";
+import Interview from "../views/interview/index.vue"
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -42,6 +43,11 @@ const routes: Array<RouteRecordRaw> = [
         path: "/form",
         name: "Form",
         component: Form,
+      },
+      {
+        path: "/interview",
+        name: "面试题",
+        component: Interview,
       },
       {
         path: "/qrcode",
