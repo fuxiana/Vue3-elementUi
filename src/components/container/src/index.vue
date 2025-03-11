@@ -56,7 +56,7 @@
               </el-sub-menu>            
             </template>
           </el-menu>
-          <div style="margin: 20px;">
+          <div :style="!showMenu? '': 'margin:20px'">
             <router-view />
           </div>
         </el-aside>
@@ -96,7 +96,8 @@
     padding: 0px !important;
   }
   .el-menu {
-    border-right-color: darkgray;
+    border-right-color: darkgray !important;
+    height: 60px !important;
   }
   .el-main-header {
     line-height: 60px;
