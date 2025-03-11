@@ -4,17 +4,18 @@
       <el-container>
         <el-aside
           class="el-menu-vertical-demo"
-          v-if="showMenu"
         >
           <el-menu
             default-active="2"
             class="el-menu-vertical-demo"
             mode="horizontal"
             @select="handleSelect"
+            v-if="showMenu"
           >
             <template
               v-for="item,index in containerRouter"
               v-bind="index"
+              :key="index"
             >
               <el-menu-item
                 v-if="!item.children || item.children.length<=0"
@@ -76,6 +77,7 @@
   const showMenu = ref(false);
   
   onMounted(()=>{
+    console.log(router.options?.history?.location)
     if(!['/','/register'].includes(router.options?.history?.location)){
       showMenu.value = true;
     }

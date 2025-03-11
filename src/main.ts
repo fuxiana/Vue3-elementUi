@@ -21,7 +21,7 @@ for (const key in Icons) {
 
 app.use(ElementPlus);
 // app.use(Container)
-app.use(Particles)
+app.use(Particles as any);
 app.use(router);
 app.use(store);
 // 添加到vue对象上，可以在全局通过 this.$cookies来调用
