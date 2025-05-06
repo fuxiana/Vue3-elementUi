@@ -24,6 +24,13 @@
         >
             反向转换
         </el-button>
+        <el-button
+            type="primary"
+            @click="drugConversion"
+            style="margin-top: 10px;"
+        >
+            药品转换
+        </el-button>
       </div>
        <el-button
             type="primary"
@@ -46,6 +53,13 @@
         >
             文本
         </el-button>
+        <el-button
+            type="primary"
+            @click="impotExcel"
+            style="margin-top: 40px;"
+        >
+            导出Excel
+        </el-button>
         <div style="margin-top: 5px;" id="jsoneditor" class="jsoneditor-div"></div>
    </div>
 </template>
@@ -55,10 +69,13 @@
     import JSONEditor from 'jsoneditor';
     import 'jsoneditor/dist/jsoneditor.css';
     import { ElNotification } from "element-plus";
+    import request from '@/api/request';
+    import axios from 'axios';
     
-    const jsonData = ref('{"text":"text"}');
+    const jsonData = ref('{}');
     const changeJsonData = ref()
-    const jsonType = ref('code')
+    const jsonType = ref('code');
+    const allChangeJsonData = ref();
 
     onMounted(()=>{
         const element = document.getElementById('jsoneditor');
@@ -100,7 +117,53 @@
         
         jsonData.value = data;
     }
-  
+
+    function drugConversion(){
+        // 设置编辑器的JSON数据
+      try{
+        let data =  JSON.parse(jsonData.value)
+        getAllChangeJsonData(data);
+      }
+      catch{
+        ElNotification({
+            title: '转换失败',
+            message: `‘${jsonData.value}’数据不符合规范`,
+            type:"error"
+        });
+      }
+    }
+
+    function getAllChangeJsonData(data2){
+       let data1 = JSON.parse(JSON.stringify(allChangeJsonData.value ||{}));
+       Object.keys(data2).forEach(key=>{
+           if(data1[key]){
+              data1[key] = {...data1[key],...data2[key]}
+           }else{
+               data1[key] = data2[key]
+           }
+       })
+       allChangeJsonData.value = data1;
+       changeJsonData.value.set(data1);
+    }
+
+    function impotExcel(){
+        axios.post('/api/book/generateExcel',{resultData:allChangeJsonData.value}, {
+            responseType: 'blob' // 关键配置
+        })
+       .then(response => {
+            const blob = response; // Axios 中数据在 response.data
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = '汇丰4.14-4.20纯销.xlsx';
+            a.click();
+            window.URL.revokeObjectURL(url);
+            ElNotification({
+                title: '下载成功',
+                type:"sucess"
+            });
+        })
+    }
   </script>
   
   <style>

@@ -5,7 +5,7 @@ const { cookies } = useCookies()
 //创建axios实例
 let request = axios.create({
   baseURL: "/api",
-  timeout: 5000,
+  timeout: 30000,
 });
 //请求拦截器
 request.interceptors.request.use((config) => {
