@@ -147,21 +147,33 @@
     }
 
     function impotExcel(){
-        axios.post('/api/book/generateExcel',{resultData:allChangeJsonData.value}, {
-            responseType: 'blob' // 关键配置
-        })
+        request.post(
+            '/book/generateExcel',
+            {resultData:allChangeJsonData.value},
+            {
+               responseType: 'blob' // 关键配置
+            }
+        )
        .then(response => {
-            const blob = response; // Axios 中数据在 response.data
-            const url = window.URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = '汇丰4.14-4.20纯销.xlsx';
-            a.click();
-            window.URL.revokeObjectURL(url);
-            ElNotification({
-                title: '下载成功',
-                type:"sucess"
-            });
+            if(response.type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'){
+                const blob = response; // Axios 中数据在 response.data
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = '汇丰4.14-4.20纯销.xlsx';
+                a.click();
+                window.URL.revokeObjectURL(url);
+                ElNotification({
+                    title: '下载成功',
+                    type:"sucess"
+                });
+            }else{
+                 ElNotification({
+                    title: '下载失败',
+                    message: "请检查数据是否正确",
+                    type: "error"
+                });
+            }
         })
     }
   </script>

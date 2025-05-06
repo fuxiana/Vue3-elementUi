@@ -18,7 +18,7 @@ request.interceptors.request.use((config) => {
 //响应拦截器
 request.interceptors.response.use(
   (response) => {
-    if (response.data?.code !== 0) {
+    if (response.data?.code !== 0 && response.config.url !== "/book/generateExcel") {
       const errorMessage = response.data;
       ElNotification({
         type: "error",
