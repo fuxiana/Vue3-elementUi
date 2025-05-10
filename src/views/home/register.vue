@@ -128,7 +128,7 @@ const router = useRouter();
     registerForm.value.password = registerForm.value.password.trim();
     request.post("/login/register", { ...registerForm.value }).then((res) => {
       if(res.data){
-        ElMessage.success("登入成功!");
+        ElMessage.success("注册成功!");
         router.replace('/');
       }
     });
