@@ -45,8 +45,8 @@ const routes: Array<RouteRecordRaw> = [
         component: Form,
       },
       {
-        path: "/interview",
-        name: "面试题",
+        path: "/upload",
+        name: "上传文件",
         component: Interview,
       },
       {

@@ -100,8 +100,8 @@ export default {
 
         // 处理响应
         this.uploadResult = {
+          url: response.data,
           success: true,
-          url: response.data.url // 根据实际响应结构调整
         };
 
       } catch (error) {
@@ -117,10 +117,11 @@ export default {
     },
 
     doload(){
-    request.get('/oss/download/1745746375448_内容管理.png')
+    request.get( `/oss/download/${this.uploadResult.url}`)
     .then(response => {
-      window.open(response);
-      console.log(response);
+      let url = response.data;
+      url = url.replace('http://', 'https://');
+      window.open(url);
     })
     .catch(error => {
       console.error('下载失败:', error);
