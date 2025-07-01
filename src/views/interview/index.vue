@@ -92,6 +92,7 @@ export default {
         // 多文件上传需要循环添加
         Array.from(this.selectedFiles).forEach(file => {
           formData.append('file', file); // 字段名根据后端接口调整
+          formData.append('directory', 'upload');
         });
 
         // 发送请求（替换为你的上传接口）
@@ -117,15 +118,15 @@ export default {
     },
 
     doload(){
-    request.get( `/oss/download/${this.uploadResult.url}`)
-    .then(response => {
-      let url = response.data;
-      url = url.replace('http://', 'https://');
-      window.open(url);
-    })
-    .catch(error => {
-      console.error('下载失败:', error);
-    })
+      request.get( `/oss/download?filePath=upload/${this.uploadResult.url}`)
+      .then(response => {
+        let url = response.data;
+        url = url.replace('http://', 'https://');
+        window.open(url);
+      })
+      .catch(error => {
+        console.error('下载失败:', error);
+      })
   }
   },
 };

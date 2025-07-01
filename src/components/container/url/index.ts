@@ -6,8 +6,8 @@ export const containerRouter = [
     icon: "el-icon-menu",
   },
   {
-    url: "/interview",
-    title: "面试题",
+    url: "/upload",
+    title: "上传文件",
     children: [],
     icon: "el-icon-sunny",
   },
@@ -31,4 +31,10 @@ export const containerRouter = [
       }
     ],
   },
+  {
+    url:"/map",
+    title:"地图",
+    icon:"el-icon-map",
+    children:[]
+  }
 ];

@@ -7,7 +7,8 @@ import QrCode from "../views/qrcode/index.vue";
 import BarCode from "../views/bar-code/index.vue";
 import JsonEditor from "../views/json-editor/index.vue";
 import Register from "../views/home/register.vue";
-import Interview from "../views/interview/index.vue"
+import Interview from "../views/interview/index.vue";
+import Map from "../views/map/index.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -63,6 +64,11 @@ const routes: Array<RouteRecordRaw> = [
         path: "/json-editor",
         name: "JSON数据格式在线格式化",
         component: JsonEditor,
+      },
+         {
+        path: "/map",
+        name: "地图",
+        component: Map,
       },
     ],
   },
